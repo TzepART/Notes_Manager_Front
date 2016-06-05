@@ -13,7 +13,7 @@
                 <li role="presentation"><a href="#">Contact</a></li>
             </ul>
         </nav>
-        <h3 class="text-muted">Project name</h3>
+        <h3 class="text-muted">Notes Manager(beta)</h3>
     </div>
 
     <div class="row">
@@ -34,20 +34,23 @@
 
             <div class="form-group create_sector">
                 <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
-                <input type="text" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="" autocomplete="off"/>
+                <input type="color" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="#7FFF00" autocomplete="off"/>
             </div>
 
             <div class="form-group create_sector">
                 <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
-                <input type="text" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="" autocomplete="off"/>
+                <input type="color" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="#FF8C00" autocomplete="off"/>
             </div>
 
             <div class="form-group create_sector">
                 <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
-                <input type="text" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="" autocomplete="off"/>
+                <input type="color" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="#6495ED" autocomplete="off"/>
             </div>
 
-            <input name="save" value="Создать окружность" class="btn btn-success" type="submit">
+            <div class="form-group form_submit">
+                <input name="save" value="Создать окружность" class="btn btn-success" type="submit">
+                <input name="create_sector" value="Добавить сектор" class="btn btn-primary" type="submit">
+            </div>
         </form>
     </div>
 
