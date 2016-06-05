@@ -16,42 +16,45 @@
         <h3 class="text-muted">Project name</h3>
     </div>
 
-    <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus
-            commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+    <div class="row">
+        <form method="post" name="form1" action="#" enctype="multipart/form-data"
+              class="col-md-4 col-md-offset-4 create_circle_form">
+
+            <h2>Создать Окружность</h2>
+            <div class="form-group create_circle">
+                <input type="text" name="name" placeholder="Название окружности" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <input type="number" name="layers_number" placeholder="Колличество уровней" class="form-control"/>
+            </div>
+
+
+            <h2>Создать секторы</h2>
+
+            <div class="form-group create_sector">
+                <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
+                <input type="text" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="" autocomplete="off"/>
+            </div>
+
+            <div class="form-group create_sector">
+                <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
+                <input type="text" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="" autocomplete="off"/>
+            </div>
+
+            <div class="form-group create_sector">
+                <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
+                <input type="text" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="" autocomplete="off"/>
+            </div>
+
+            <input name="save" value="Создать окружность" class="btn btn-success" type="submit">
+        </form>
     </div>
 
-    <div class="row marketing">
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet
-                fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet
-                fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-    </div>
 
 
     <footer class="footer">
-        <p>&copy; 2015 Company, Inc.</p>
+        <p>&copy; 2016 Company, Inc.</p>
     </footer>
 
 </div> <!-- /container -->
