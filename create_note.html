@@ -18,10 +18,10 @@
 
     <div class="row">
         <form method="post" name="form1" action="#" enctype="multipart/form-data"
-              class="col-md-4 col-md-offset-4 create_circle_form">
+              class="col-md-4 col-md-offset-4 create_note_form">
 
             <h2>Создать Заметку</h2>
-            <div class="form-group create_circle">
+            <div class="form-group create_note">
                 <input type="text" name="name" placeholder="Название заметки" class="form-control"/>
             </div>
 
@@ -32,30 +32,39 @@
 
             <h2>Размещение заметки</h2>
 
-            <div class="form-group create_sector">
+            <div class="form-group create_note">
                 <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button class="btn btn-default dropdown-toggle tzep_select"
+                            type="button" id="select_circle"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="true">
                         Выберите окружность
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <ul class="dropdown-menu" aria-labelledby="select_circle">
+                        <li><a href="#">Путешествие</a></li>
                         <li><a href="#">Общая</a></li>
                         <li><a href="#">Работа</a></li>
-                        <li><a href="#">Путешествие</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="form-group create_sector">
+            <div class="form-group create_note">
                 <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button class="btn btn-default dropdown-toggle tzep_select"
+                            type="button"
+                            id="select_note"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="true">
                         Выберите сектор
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Общая</a></li>
-                        <li><a href="#">Работа</a></li>
-                        <li><a href="#">Путешествие</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="select_note">
+                        <li><a href="#">Виза</a></li>
+                        <li><a href="#">Язык</a></li>
+                        <li><a href="#">Деньги на сувениры</a></li>
                     </ul>
                 </div>
             </div>
