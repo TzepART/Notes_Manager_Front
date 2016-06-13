@@ -17,8 +17,53 @@
     </div>
 
     <div class="row">
-    </div>
+        <form method="post" name="form1" action="#" enctype="multipart/form-data"
+              class="col-md-4 col-md-offset-4 create_circle_form">
 
+            <h2>Создать Заметку</h2>
+            <div class="form-group create_circle">
+                <input type="text" name="name" placeholder="Название заметки" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <input type="number" name="layers_number" placeholder="Колличество уровней" class="form-control"/>
+            </div>
+
+
+            <h2>Создать секторы</h2>
+
+            <div class="form-group create_sector">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Dropdown
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group create_sector">
+                <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
+                <input type="color" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="#FF8C00" autocomplete="off"/>
+            </div>
+
+            <div class="form-group create_sector">
+                <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
+                <input type="color" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="#6495ED" autocomplete="off"/>
+            </div>
+
+            <div class="form-group form_submit">
+                <input name="save" value="Создать окружность" class="btn btn-success" type="submit">
+                <input name="create_sector" value="Добавить сектор" class="btn btn-primary" type="submit">
+            </div>
+        </form>
+    </div>
 
 
     <footer class="footer">
