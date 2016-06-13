@@ -21,19 +21,25 @@
         <form method="post" name="form1" action="#" enctype="multipart/form-data"
               class="col-md-4 col-md-offset-4 create_circle_form">
 
-            <h2>Создать Окружность</h2>
-            <div class="form-group create_circle">
-                <input type="text" name="name" placeholder="Название окружности" class="form-control"/>
+            <h2 class="register_title">Регистрация</h2>
+            <div class="form-group">
+                <input type="text" name="_username" placeholder="Login" class="form-control"/>
             </div>
 
             <div class="form-group">
-                <input type="number" name="layers_number" placeholder="Колличество уровней" class="form-control"/>
+                <input type="email" name="_email" placeholder="E-mail" class="form-control"/>
             </div>
 
+            <div class="form-group">
+                <input type="password" name="_password" placeholder="Пароль" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <input type="password" name="_password_repeat" placeholder="Повторите пароль" class="form-control"/>
+            </div>
 
             <div class="form-group form_submit">
-                <input name="create_sector" value="Добавить сектор" class="btn btn-primary" type="submit">
-                <input name="save" value="Создать окружность" class="btn btn-success" type="submit">
+                <input name="save" value="Регистрация" class="btn btn-success register_button" type="submit">
             </div>
         </form>
     </div>
