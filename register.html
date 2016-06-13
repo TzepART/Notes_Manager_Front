@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="import" href="head.html">
+</head>
+<body>
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="list_circle.html">Home</a></li>
+                <li role="presentation" class="active"><a href="create_circle.html">Добавить окружность</a></li>
+                <li role="presentation"><a href="create_note.html">Добавить заметку</a></li>
+                <li role="presentation"><a href="index.html">About</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Notes Manager <span class="label label-default">Beta</span></h3>
+    </div>
+
+    <div class="row">
+        <form method="post" name="form1" action="#" enctype="multipart/form-data"
+              class="col-md-4 col-md-offset-4 create_circle_form">
+
+            <h2>Создать Окружность</h2>
+            <div class="form-group create_circle">
+                <input type="text" name="name" placeholder="Название окружности" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <input type="number" name="layers_number" placeholder="Колличество уровней" class="form-control"/>
+            </div>
+
+
+            <div class="form-group form_submit">
+                <input name="create_sector" value="Добавить сектор" class="btn btn-primary" type="submit">
+                <input name="save" value="Создать окружность" class="btn btn-success" type="submit">
+            </div>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2016 TzepArt Company, Inc.</p>
+    </footer>
+
+</div> <!-- /container -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
