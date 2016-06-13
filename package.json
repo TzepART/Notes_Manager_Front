@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/TzepART/Notes_Manager_Front#readme",
   "devDependencies": {
+    "browser-sync": "^2.13.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-cssnano": "^2.1.2",
