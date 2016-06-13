@@ -26,48 +26,30 @@
             </div>
 
             <div class="form-group">
-                <textarea placeholder="Текст заметки" class="form-control" rows="3"></textarea>
+                <textarea placeholder="Текст заметки" name="notes_body" class="form-control" rows="3"></textarea>
             </div>
 
 
             <h2>Размещение заметки</h2>
 
-            <div class="form-group create_note">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle tzep_select"
-                            type="button" id="select_circle"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="true">
-                        Выберите окружность
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="select_circle">
-                        <li><a href="#">Путешествие</a></li>
-                        <li><a href="#">Общая</a></li>
-                        <li><a href="#">Работа</a></li>
-                    </ul>
-                </div>
+            <div class="form-group">
+                <select class="form-control" name="select_circle">
+                    <option>Выберите окружность</option>
+                    <option>Путешествие</option>
+                    <option>Общая</option>
+                    <option>Работа</option>
+                </select>
             </div>
 
-            <div class="form-group create_note">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle tzep_select"
-                            type="button"
-                            id="select_note"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="true">
-                        Выберите сектор
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="select_note">
-                        <li><a href="#">Виза</a></li>
-                        <li><a href="#">Язык</a></li>
-                        <li><a href="#">Деньги на сувениры</a></li>
-                    </ul>
-                </div>
+            <div class="form-group">
+                <select class="form-control" name="select_sector">
+                    <option>Выберите сектор</option>
+                    <option>Виза</option>
+                    <option>Язык</option>
+                    <option>Деньги на сувениры</option>
+                </select>
             </div>
+
 
             <div class="form-group">
                 <input type="number" name="layers_number" placeholder="Уровень срочности" class="form-control"/>
