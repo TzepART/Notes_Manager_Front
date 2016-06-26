@@ -49,6 +49,8 @@ $('canvas')
         x: CenterX, y: CenterY,
         start: -45, end: 15,
         radius: 200,
+        strokeStyle: '#f60',
+        strokeWidth: 3,
         click: function(layer) {
             console.log("blue");
         }
@@ -71,6 +73,8 @@ $('canvas')
         x: CenterX, y: CenterY,
         start: 15, end: 90,
         radius: 200,
+        strokeStyle: '#f60',
+        strokeWidth: 3,
     })
     .drawText({
         layer: true,
@@ -90,6 +94,8 @@ $('canvas')
         x: CenterX, y: CenterY,
         start: 90, end: -45,
         radius: 200,
+        strokeStyle: '#f60',
+        strokeWidth: 3,
     })
     .drawText({
         layer: true,
@@ -139,6 +145,8 @@ $('canvas')
         x: CenterX, y: CenterY,
         start: -45, end: 15,
         radius: 100,
+        strokeStyle: '#f60',
+        strokeWidth: 3,
         click: function(layer) {
             console.log("red");
         }
@@ -151,6 +159,8 @@ $('canvas')
         x: CenterX, y: CenterY,
         start: 15, end: 90,
         radius: 100,
+        strokeStyle: '#f60',
+        strokeWidth: 3,
     })
     .drawSlice({
         layer: true,
@@ -160,6 +170,8 @@ $('canvas')
         x: CenterX, y: CenterY,
         start: 90, end: -45,
         radius: 100,
+        strokeStyle: '#f60',
+        strokeWidth: 3,
     });
 
 /*$('canvas').drawLine({
@@ -219,7 +231,7 @@ $('canvas').drawArc({
     //     console.log('dragstart');
     // },
     dblclick: function(layer) {
-        console.log('dblclick');
+        $('#pop_lable').css('display','block').attr('id',555);
     },
     // dragstop: function(layer) {
     //     console.log('dragstop');
