@@ -1,6 +1,9 @@
 var CenterX = 300;
 var CenterY = 300;
 var bigRadius = 200;
+var colorRayAndCircleByLable = '#48D1CC';
+var colorLable = '#36c';
+var radiusLable = 10;
 /**
  * Из декартовой в полярную систему координат.
  *
@@ -62,359 +65,169 @@ function changeColorLayers(color,numLayers) {
     var tempColor = arColor;
     var arRBA = [];
     var i = 0;
-    var difColor = (256-arColor[0])/numLayers;
-    var red = arColor[0] + difColor;
-    for(red; red <= 256; red = red + difColor){
+    var difColorRed = (256-arColor[0])/numLayers;
+    var difColorGreen = (arColor[1])/(numLayers-1);
+    var difColorBlue = (arColor[2])/(numLayers-1);
+    var red = arColor[0] + difColorRed;
+    var green = arColor[1];
+    var blue = arColor[2];
+    for(red; red <= 256; red = red + difColorRed){
         tempColor[0] = Math.floor(red);
-        console.log(tempColor);
-        console.log(red);
+        tempColor[1] = Math.floor(green);
+        tempColor[2] = Math.floor(blue);
         arRBA[i] = hexArrayInRgbString(tempColor);
+        green = green - difColorGreen;
+        blue = blue - difColorBlue;
         i++;
     }
     return arRBA;
 }
 
-console.log(changeColorLayers("#80407b",4));
-
 function createSector(data) {
-    $('canvas')
-        .drawSlice({
+    var arColors = changeColorLayers(data.color,data.numLayers);
+    var i;
+    var difRadius = bigRadius/data.numLayers;
+    var radius = bigRadius;
+    for(i=1;i<=data.numLayers;i++){
+        $('canvas').drawSlice({
             layer: true,
-            name: 'blue-slice',
+            name: 'slice'+data.id+i,
             groups: ['chart', 'slices'],
-            fillStyle: data.color,
+            fillStyle: arColors[i-1],
             x: CenterX, y: CenterY,
             start: data.beginAngle, end: data.endAngle,
-            radius: 200,
+            radius: radius,
             strokeStyle: '#f60',
             strokeWidth: 3,
-        })
-        .drawSlice({
-            layer: true,
-            name: 'red-slice',
-            groups: ['chart', 'slices'],
-            fillStyle: '#c33',
-            x: CenterX, y: CenterY,
-            start: -45, end: 15,
-            radius: 100,
-            strokeStyle: '#f60',
-            strokeWidth: 3,
-        })
+            dblclick: function(layer) {
+                $('#pop_create_sector').css('display','block').attr('id',555);
+            },   
+            click: function(layer) {
+                $('#pop_sector').css('display','block').attr('id',555);
+            },
+        });
+        radius = radius - difRadius;
+    }
+    $('canvas')
         .drawText({
             layer: true,
             fillStyle: '#c33',
             fontFamily: 'Trebuchet MS, sans-serif',
             fontSize: 18,
-            text: 'Творчество',
+            text: data.name,
             x: CenterX, y: CenterY,
-            radius: 220,
-            rotate: -15,
+            radius: bigRadius+20,
+            rotate: (data.beginAngle<data.endAngle)?(data.beginAngle+data.endAngle)/2:(data.beginAngle+data.endAngle+360)/2,
             dblclick: function(layer) {
-                console.log("Sector");
                 $('#pop_sector').css('display','block').attr('id',555);
             },
         });
 }
 
-$('canvas')
-    .drawSlice({
+function rayAndCircleByLabel(layer,id) {
+    var pol = cartesian2Polar(layer.x, layer.y);
+    var dec = cartesian2Dec(bigRadius+30,pol.degr);
+    var Label = $('canvas').getLayer(layer.name);
+    Label.fillStyle = "Red";
+    $('canvas').drawArc({
         layer: true,
-        name: 'blue-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: 'blue',
-        x: CenterX, y: CenterY,
-        start: -45, end: 15,
-        radius: 200,
-        strokeStyle: '#f60',
+        strokeStyle: colorRayAndCircleByLable,
         strokeWidth: 3,
-        click: function(layer) {
-            console.log("blue");
-        }
-    })
-    .drawSlice({
-        layer: true,
-        name: 'red-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: '#c33',
+        name: 'circleByLabel'+id,
         x: CenterX, y: CenterY,
-        start: -45, end: 15,
-        radius: 100,
-        strokeStyle: '#f60',
-        strokeWidth: 3,
-        click: function(layer) {
-            console.log("red");
-        }
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Trebuchet MS, sans-serif',
-        fontSize: 18,
-        text: 'Творчество',
-        x: CenterX, y: CenterY,
-        radius: 220,
-        rotate: -15,
-        dblclick: function(layer) {
-            console.log("Sector");
-            $('#pop_sector').css('display','block').attr('id',555);
-        },
-    })
-    .drawSlice({
-        layer: true,
-        name: 'green-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: 'green',
-        x: CenterX, y: CenterY,
-        start: 15, end: 90,
-        radius: 200,
-        strokeStyle: '#f60',
-        strokeWidth: 3,
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Ubuntu, sans-serif',
-        fontSize: 18,
-        text: 'Семья',
-        x: CenterX, y: CenterY,
-        radius: 220,
-        rotate: 55
-    })
-    .drawSlice({
-        layer: true,
-        name: 'black-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: 'black',
-        x: CenterX, y: CenterY,
-        start: 90, end: -45,
-        radius: 200,
-        strokeStyle: '#f60',
-        strokeWidth: 3,
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Ubuntu, sans-serif',
-        fontSize: 18,
-        text: 'Отдых',
-        x: CenterX, y: CenterY,
-        radius: 240,
-        rotate: 200
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Ubuntu, sans-serif',
-        fontSize: 18,
-        text: 'Общее',
-        x: CenterX, y: CenterY,
-        radius: 220,
-        rotate: 110
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Ubuntu, sans-serif',
-        fontSize: 18,
-        text: 'Виза',
-        x: CenterX, y: CenterY,
-        radius: 220,
-        rotate: 200
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Ubuntu, sans-serif',
-        fontSize: 18,
-        text: 'Отель',
-        x: CenterX, y: CenterY,
-        radius: 220,
-        rotate: 260
-    })
-    .drawSlice({
-        layer: true,
-        name: 'grey-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: 'grey',
-        x: CenterX, y: CenterY,
-        start: 15, end: 90,
-        radius: 100,
-        strokeStyle: '#f60',
-        strokeWidth: 3,
-    })
-    .drawSlice({
-        layer: true,
-        name: 'orange-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: 'orange',
-        x: CenterX, y: CenterY,
-        start: 90, end: -45,
-        radius: 100,
-        strokeStyle: '#f60',
-        strokeWidth: 3,
+        radius: pol.distance,
     });
+    $('canvas').drawLine({
+        layer: true,
+        strokeWidth: 3,
+        name: 'lineByLabel'+id,
+        strokeStyle: colorRayAndCircleByLable,
+        x1: CenterX, y1: CenterY,
+        x2: dec.X, y2: dec.Y,
+    });
+}
 
-/*$('canvas').drawLine({
-    layer: true,
-    draggable: true,
-    strokeStyle: '#000',
-    strokeWidth: 5,
-    rounded: true,
-    x1: 150, y1: 200,
-    x2: 150, y2: 0,
-    restrictDragToAxis: 'x',
-    click: function(layer) {
-        console.log(layer.x1);
-        console.log(layer);
-        this.x1 = 150;
-        this.y1 = 200;
-    }
-});*/
+function delRayAndCircleByLabel(id) {
+    $('canvas').removeLayer('circleByLabel'+id);
+    $('canvas').removeLayer('lineByLabel'+id);
+}
 
-$('canvas').drawArc({
-    layer: true,
-    draggable: true,
-    name: 'myLabel',
-    fillStyle: '#36c',
-    x: CenterX, y: 150,
-    radius: 10,
-    data: {'id':22},
-    dragstop: function(layer) {
-        console.log('X - '+layer.x);
-        console.log('Y - '+layer.y);
-        var pol = cartesian2Polar(layer.x, layer.y);
-        console.log(pol);
-        var dec = cartesian2Dec(pol.distance,pol.degr);
-        console.log(dec);
-    },
-    // dblclick: function(layer) {
-    //     console.log('dblclick');
-    // },
-    // mousedown: function(layer) {
-    //     console.log('mousedown');
-    // },
-    // mouseup: function(layer) {
-    //     console.log('mouseup');
-    // },
-    // mousemove: function(layer) {
-    //     console.log('mousemove');
-    // },
-    mouseover: function(layer) {
-        var pol = cartesian2Polar(layer.x, layer.y);
-        var dec = cartesian2Dec(bigRadius+30,pol.degr);
-        $('canvas').drawArc({
-                layer: true,
-                strokeStyle: '#48D1CC',
-                strokeWidth: 3,
-                name: 'circle1',
-                x: CenterX, y: CenterY,
-                radius: pol.distance,
-        });
-        $('canvas').drawLine({
-            strokeWidth: 3,
-            name: 'line1',
-            strokeStyle: '#48D1CC',
-            x1: CenterX, y1: CenterY,
-            x2: dec.X, y2: dec.Y,
-        });
-        var Label = $('canvas').getLayer('myLabel');
-        Label.fillStyle = "Red";
-    },
-    mouseout: function(layer) {
-        var Label = $('canvas').getLayer('myLabel');
-        $('canvas').removeLayer('circle1');
-        $('canvas').removeLayer('line1');
-    },
-    // dragstart: function(layer) {
-    //     console.log('dragstart');
-    // },
-    dblclick: function(layer) {
-        $('#pop_lable').css('display','block').attr('id',555);
-    },
-    // dragstop: function(layer) {
-    //     console.log('dragstop');
-    // },
-    // touchstart: function(layer) {
-    //     console.log('touchstart');
-    // },
-    // touchend: function(layer) {
-    //     console.log('touchend');
-    // },
-    // touchmove: function(layer) {
-    //     console.log('touchmove');
-    // }
-});
+function createLable(data) {
+    var LabelCoord = cartesian2Dec(data.radius*bigRadius, data.degr)
+    $('canvas').drawArc({
+        layer: true,
+        draggable: true,
+        name: 'myLabel'+data.id,
+        fillStyle: colorLable,
+        x: LabelCoord.X, y: LabelCoord.Y,
+        radius: radiusLable,
+        data: {'id' : data.id},
+        dragstop: function(layer) {
+            console.log('X - '+layer.x);
+            console.log('Y - '+layer.y);
+            var pol = cartesian2Polar(layer.x, layer.y);
+            console.log(pol);
+            var dec = cartesian2Dec(pol.distance,pol.degr);
+            console.log(dec);
+        },
+        mouseover: function(layer) {
+            rayAndCircleByLabel(layer,layer.data.id);
+        },
+        mouseout: function(layer) {
+            var Label = $('canvas').getLayer(layer.name);
+            Label.fillStyle = colorLable;
+            delRayAndCircleByLabel(layer.data.id);
+        },
+        dblclick: function(layer) {
+            $('#pop_lable').css('display','block').attr('id',layer.data.id);
+        },
+    });
+}
 
-$('canvas').drawArc({
-    layer: true,
-    draggable: true,
-    name: 'myLabel2',
-    fillStyle: '#36c',
-    x: CenterX+40, y: 200,
-    radius: 10,
-    data: {'id':22},
-    dragstop: function(layer) {
-        console.log('X - '+layer.x);
-        console.log('Y - '+layer.y);
-        var pol = cartesian2Polar(layer.x, layer.y);
-        console.log(pol);
-        var dec = cartesian2Dec(pol.distance,pol.degr);
-        console.log(dec);
-    },
-    // dblclick: function(layer) {
-    //     console.log('dblclick');
-    // },
-    // mousedown: function(layer) {
-    //     console.log('mousedown');
-    // },
-    // mouseup: function(layer) {
-    //     console.log('mouseup');
-    // },
-    // mousemove: function(layer) {
-    //     console.log('mousemove');
-    // },
-    mouseover: function(layer) {
-        var pol = cartesian2Polar(layer.x, layer.y);
-        var dec = cartesian2Dec(bigRadius+30,pol.degr);
-        $('canvas').drawArc({
-            layer: true,
-            strokeStyle: '#48D1CC',
-            strokeWidth: 3,
-            name: 'circle2',
-            x: CenterX, y: CenterY,
-            radius: pol.distance,
-        });
-        $('canvas').drawLine({
-            strokeWidth: 3,
-            name: 'line2',
-            strokeStyle: '#48D1CC',
-            x1: CenterX, y1: CenterY,
-            x2: dec.X, y2: dec.Y,
-        });
-        var Label = $('canvas').getLayer('myLabel2');
-        Label.fillStyle = "Red";
-    },
-    mouseout: function(layer) {
-        var Label = $('canvas').getLayer('myLabel2');
-        $('canvas').removeLayer('circle2');
-        $('canvas').removeLayer('line2');
-    },
-    // dragstart: function(layer) {
-    //     console.log('dragstart');
-    // },
-    dblclick: function(layer) {
-        $('#pop_lable').css('display','block').attr('id',555);
-    },
-    // dragstop: function(layer) {
-    //     console.log('dragstop');
-    // },
-    // touchstart: function(layer) {
-    //     console.log('touchstart');
-    // },
-    // touchend: function(layer) {
-    //     console.log('touchend');
-    // },
-    // touchmove: function(layer) {
-    //     console.log('touchmove');
-    // }
-});
+var numLayers = 4;
+
+var dataSector1 = {
+    id:1,
+    numLayers:numLayers,
+    color:'#8FBC8F',
+    beginAngle:10,
+    endAngle:90,
+    name:'Example1'
+};
+
+var dataSector2 = {
+    id:2,
+    numLayers:numLayers,
+    color:'#FFD700',
+    beginAngle:90,
+    endAngle:200,
+    name:'Example2'
+};
+var dataSector3 = {
+    id:3,
+    numLayers:numLayers,
+    color:'#BA55D3',
+    beginAngle:200,
+    endAngle:10,
+    name:'Example3'
+};
+
+createSector(dataSector1);
+createSector(dataSector2);
+createSector(dataSector3);
+
+var dataLabel1 = {
+    id:1,
+    radius:0.33,
+    degr:86
+};
+
+var dataLabel2 = {
+    id:2,
+    radius:0.71,
+    degr:230,
+};
+
+createLable(dataLabel1);
+createLable(dataLabel2);
+
