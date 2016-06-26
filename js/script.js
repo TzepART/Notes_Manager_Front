@@ -1,6 +1,7 @@
 var CenterX = 300;
 var CenterY = 300;
 var bigRadius = 200;
+var colorRayAndCircleByLable = '#48D1CC';
 /**
  * Из декартовой в полярную систему координат.
  *
@@ -96,6 +97,12 @@ function createSector(data) {
             radius: radius,
             strokeStyle: '#f60',
             strokeWidth: 3,
+            dblclick: function(layer) {
+                $('#pop_create_sector').css('display','block').attr('id',555);
+            },   
+            click: function(layer) {
+                $('#pop_sector').css('display','block').attr('id',555);
+            },
         });
         radius = radius - difRadius;
     }
@@ -165,6 +172,34 @@ createSector(data3);
     }
 });*/
 
+function rayAndCircleByLabel(layer,id) {
+    var pol = cartesian2Polar(layer.x, layer.y);
+    var dec = cartesian2Dec(bigRadius+30,pol.degr);
+    var Label = $('canvas').getLayer('myLabel');
+    Label.fillStyle = "Red";
+    $('canvas').drawArc({
+        layer: true,
+        strokeStyle: colorRayAndCircleByLable,
+        strokeWidth: 3,
+        name: 'circleByLabel'+id,
+        x: CenterX, y: CenterY,
+        radius: pol.distance,
+    });
+    $('canvas').drawLine({
+        layer: true,
+        strokeWidth: 3,
+        name: 'lineByLabel'+id,
+        strokeStyle: colorRayAndCircleByLable,
+        x1: CenterX, y1: CenterY,
+        x2: dec.X, y2: dec.Y,
+    });
+}
+
+function delRayAndCircleByLabel(id) {
+    $('canvas').removeLayer('circleByLabel'+id);
+    $('canvas').removeLayer('lineByLabel'+id);
+}
+
 $('canvas').drawArc({
     layer: true,
     draggable: true,
@@ -181,63 +216,17 @@ $('canvas').drawArc({
         var dec = cartesian2Dec(pol.distance,pol.degr);
         console.log(dec);
     },
-    // dblclick: function(layer) {
-    //     console.log('dblclick');
-    // },
-    // mousedown: function(layer) {
-    //     console.log('mousedown');
-    // },
-    // mouseup: function(layer) {
-    //     console.log('mouseup');
-    // },
-    // mousemove: function(layer) {
-    //     console.log('mousemove');
-    // },
     mouseover: function(layer) {
-        var pol = cartesian2Polar(layer.x, layer.y);
-        var dec = cartesian2Dec(bigRadius+30,pol.degr);
-        $('canvas').drawArc({
-                layer: true,
-                strokeStyle: '#48D1CC',
-                strokeWidth: 3,
-                name: 'circle1',
-                x: CenterX, y: CenterY,
-                radius: pol.distance,
-        });
-        $('canvas').drawLine({
-            strokeWidth: 3,
-            name: 'line1',
-            strokeStyle: '#48D1CC',
-            x1: CenterX, y1: CenterY,
-            x2: dec.X, y2: dec.Y,
-        });
-        var Label = $('canvas').getLayer('myLabel');
-        Label.fillStyle = "Red";
+        rayAndCircleByLabel(layer,layer.data.id);
     },
     mouseout: function(layer) {
         var Label = $('canvas').getLayer('myLabel');
-        Label.fillStyle = "Blue";
-        $('canvas').removeLayer('circle1');
-        $('canvas').removeLayer('line1');
+        Label.fillStyle = "#36c";
+        delRayAndCircleByLabel(layer.data.id);
     },
-    // dragstart: function(layer) {
-    //     console.log('dragstart');
-    // },
     dblclick: function(layer) {
-        $('#pop_lable').css('display','block').attr('id',555);
+        $('#pop_lable').css('display','block').attr('id',layer.data.id);
     },
-    // dragstop: function(layer) {
-    //     console.log('dragstop');
-    // },
-    // touchstart: function(layer) {
-    //     console.log('touchstart');
-    // },
-    // touchend: function(layer) {
-    //     console.log('touchend');
-    // },
-    // touchmove: function(layer) {
-    //     console.log('touchmove');
-    // }
 });
 
 $('canvas').drawArc({
@@ -247,7 +236,7 @@ $('canvas').drawArc({
     fillStyle: '#36c',
     x: CenterX+40, y: 200,
     radius: 10,
-    data: {'id':22},
+    data: {'id':12},
     dragstop: function(layer) {
         console.log('X - '+layer.x);
         console.log('Y - '+layer.y);
@@ -256,61 +245,17 @@ $('canvas').drawArc({
         var dec = cartesian2Dec(pol.distance,pol.degr);
         console.log(dec);
     },
-    // dblclick: function(layer) {
-    //     console.log('dblclick');
-    // },
-    // mousedown: function(layer) {
-    //     console.log('mousedown');
-    // },
-    // mouseup: function(layer) {
-    //     console.log('mouseup');
-    // },
-    // mousemove: function(layer) {
-    //     console.log('mousemove');
-    // },
     mouseover: function(layer) {
-        var pol = cartesian2Polar(layer.x, layer.y);
-        var dec = cartesian2Dec(bigRadius+30,pol.degr);
-        $('canvas').drawArc({
-            layer: true,
-            strokeStyle: '#48D1CC',
-            strokeWidth: 3,
-            name: 'circle2',
-            x: CenterX, y: CenterY,
-            radius: pol.distance,
-        });
-        $('canvas').drawLine({
-            strokeWidth: 3,
-            name: 'line2',
-            strokeStyle: '#48D1CC',
-            x1: CenterX, y1: CenterY,
-            x2: dec.X, y2: dec.Y,
-        });
+        rayAndCircleByLabel(layer,layer.data.id);
         var Label = $('canvas').getLayer('myLabel2');
         Label.fillStyle = "Red";
     },
     mouseout: function(layer) {
         var Label = $('canvas').getLayer('myLabel2');
-        $('canvas').removeLayer('circle2');
-        $('canvas').removeLayer('line2');
-        Label.fillStyle = "Blue";
+        Label.fillStyle = "#36c";
+        delRayAndCircleByLabel(layer.data.id);
     },
-    // dragstart: function(layer) {
-    //     console.log('dragstart');
-    // },
     dblclick: function(layer) {
-        $('#pop_lable').css('display','block').attr('id',555);
+        $('#pop_lable').css('display','block').attr('id',layer.data.id);
     },
-    // dragstop: function(layer) {
-    //     console.log('dragstop');
-    // },
-    // touchstart: function(layer) {
-    //     console.log('touchstart');
-    // },
-    // touchend: function(layer) {
-    //     console.log('touchend');
-    // },
-    // touchmove: function(layer) {
-    //     console.log('touchmove');
-    // }
 });
