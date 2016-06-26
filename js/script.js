@@ -74,47 +74,40 @@ function changeColorLayers(color,numLayers) {
     return arRBA;
 }
 
-console.log(changeColorLayers("#80407b",4));
-
 function createSector(data) {
-    $('canvas')
-        .drawSlice({
+    var arColors = changeColorLayers(data.color,data.numLayers);
+    var i;
+    for(i=1;i<=data.numLayers;i++){
+        $('canvas').drawSlice({
             layer: true,
-            name: 'blue-slice',
+            name: 'slice'+i,
             groups: ['chart', 'slices'],
-            fillStyle: data.color,
+            fillStyle: arColors[i],
             x: CenterX, y: CenterY,
             start: data.beginAngle, end: data.endAngle,
-            radius: 200,
+            radius: bigRadius/i,
             strokeStyle: '#f60',
             strokeWidth: 3,
         })
-        .drawSlice({
-            layer: true,
-            name: 'red-slice',
-            groups: ['chart', 'slices'],
-            fillStyle: '#c33',
-            x: CenterX, y: CenterY,
-            start: -45, end: 15,
-            radius: 100,
-            strokeStyle: '#f60',
-            strokeWidth: 3,
-        })
+    }
+    $('canvas')
         .drawText({
             layer: true,
             fillStyle: '#c33',
             fontFamily: 'Trebuchet MS, sans-serif',
             fontSize: 18,
-            text: 'Творчество',
+            text: data.name,
             x: CenterX, y: CenterY,
-            radius: 220,
-            rotate: -15,
+            radius: bigRadius+20,
+            rotate: (data.beginAngle+data.endAngle)/2,
             dblclick: function(layer) {
                 console.log("Sector");
                 $('#pop_sector').css('display','block').attr('id',555);
             },
         });
 }
+
+
 
 $('canvas')
     .drawSlice({
