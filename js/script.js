@@ -1,10 +1,30 @@
+var CenterX = 300;
+var CenterY = 300;
+/**
+ * Из декартовой в полярную систему координат.
+ *
+ * @param {float} x
+ * @param {float} y
+ * @returns {object}
+ */
+function cartesian2Polar(x, y) {
+    var upX = (x-CenterX);
+    var upY = (y-CenterY);
+    distance = Math.sqrt(upX * upX + upY * upY);
+    radians = Math.atan2(upY, upX);
+    degr = radians*180/Math.PI+90;
+    polarCoor = {distance: distance, degr: degr};
+    return polarCoor;
+}
+
+
 $('canvas')
     .drawSlice({
         layer: true,
         name: 'blue-slice',
         groups: ['chart', 'slices'],
         fillStyle: 'blue',
-        x: 300, y: 300,
+        x: CenterX, y: CenterY,
         start: -45, end: 15,
         radius: 200,
         click: function(layer) {
@@ -17,7 +37,7 @@ $('canvas')
         fontFamily: 'Trebuchet MS, sans-serif',
         fontSize: 18,
         text: 'Творчество',
-        x: 300, y: 300,
+        x: CenterX, y: CenterY,
         radius: 220,
         rotate: -15
     })
@@ -26,7 +46,7 @@ $('canvas')
         name: 'green-slice',
         groups: ['chart', 'slices'],
         fillStyle: 'green',
-        x: 300, y: 300,
+        x: CenterX, y: CenterY,
         start: 15, end: 90,
         radius: 200,
     })
@@ -36,7 +56,7 @@ $('canvas')
         fontFamily: 'Ubuntu, sans-serif',
         fontSize: 18,
         text: 'Семья',
-        x: 300, y: 300,
+        x: CenterX, y: CenterY,
         radius: 220,
         rotate: 55
     })
@@ -45,7 +65,7 @@ $('canvas')
         name: 'black-slice',
         groups: ['chart', 'slices'],
         fillStyle: 'black',
-        x: 300, y: 300,
+        x: CenterX, y: CenterY,
         start: 90, end: -45,
         radius: 200,
     })
@@ -55,16 +75,46 @@ $('canvas')
         fontFamily: 'Ubuntu, sans-serif',
         fontSize: 18,
         text: 'Отдых',
-        x: 300, y: 300,
+        x: CenterX, y: CenterY,
+        radius: 240,
+        rotate: 200
+    })
+    .drawText({
+        layer: true,
+        fillStyle: '#c33',
+        fontFamily: 'Ubuntu, sans-serif',
+        fontSize: 18,
+        text: 'Общее',
+        x: CenterX, y: CenterY,
+        radius: 220,
+        rotate: 110
+    })
+    .drawText({
+        layer: true,
+        fillStyle: '#c33',
+        fontFamily: 'Ubuntu, sans-serif',
+        fontSize: 18,
+        text: 'Виза',
+        x: CenterX, y: CenterY,
         radius: 220,
         rotate: 200
+    })
+    .drawText({
+        layer: true,
+        fillStyle: '#c33',
+        fontFamily: 'Ubuntu, sans-serif',
+        fontSize: 18,
+        text: 'Отель',
+        x: CenterX, y: CenterY,
+        radius: 220,
+        rotate: 260
     })
     .drawSlice({
         layer: true,
         name: 'red-slice',
         groups: ['chart', 'slices'],
         fillStyle: '#c33',
-        x: 300, y: 300,
+        x: CenterX, y: CenterY,
         start: -45, end: 15,
         radius: 100,
         click: function(layer) {
@@ -76,7 +126,7 @@ $('canvas')
         name: 'grey-slice',
         groups: ['chart', 'slices'],
         fillStyle: 'grey',
-        x: 300, y: 300,
+        x: CenterX, y: CenterY,
         start: 15, end: 90,
         radius: 100,
     })
@@ -85,7 +135,7 @@ $('canvas')
         name: 'orange-slice',
         groups: ['chart', 'slices'],
         fillStyle: 'orange',
-        x: 300, y: 300,
+        x: CenterX, y: CenterY,
         start: 90, end: -45,
         radius: 100,
     });
@@ -110,15 +160,15 @@ $('canvas')
 $('canvas').drawArc({
     layer: true,
     draggable: true,
+    name: 'myLabel',
     fillStyle: '#36c',
-    x: 300, y: 150,
+    x: CenterX, y: 150,
     radius: 10,
     data: {'id':22},
     dragstop: function(layer) {
         console.log(layer.x);
         console.log(layer.y);
-        this.x1 = 150;
-        this.y1 = 200;
+        console.log(cartesian2Polar(layer.x, layer.y));
     },
     // dblclick: function(layer) {
     //     console.log('dblclick');
@@ -132,12 +182,14 @@ $('canvas').drawArc({
     // mousemove: function(layer) {
     //     console.log('mousemove');
     // },
-    // mouseover: function(layer) {
-    //     console.log('mouseover');
-    // },
-    // mouseout: function(layer) {
-    //     console.log('mouseout');
-    // },
+    mouseover: function(layer) {
+        var Label = $('canvas').getLayer('myLabel');
+        Label.fillStyle = "Red";
+    },
+    mouseout: function(layer) {
+        var Label = $('canvas').getLayer('myLabel');
+        Label.fillStyle = '#36c';
+    },
     // dragstart: function(layer) {
     //     console.log('dragstart');
     // },
