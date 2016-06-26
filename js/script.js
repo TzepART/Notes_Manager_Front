@@ -2,6 +2,8 @@ var CenterX = 300;
 var CenterY = 300;
 var bigRadius = 200;
 var colorRayAndCircleByLable = '#48D1CC';
+var colorLable = '#36c';
+var radiusLable = 10;
 /**
  * Из декартовой в полярную систему координат.
  *
@@ -122,60 +124,10 @@ function createSector(data) {
         });
 }
 
-var numLayers = 4;
-
-var data1 = {
-    id:1,
-    numLayers:numLayers,
-    color:'#8FBC8F',
-    beginAngle:10,
-    endAngle:90,
-    name:'Example1'
-};
-
-var data2 = {
-    id:2,
-    numLayers:numLayers,
-    color:'#FFD700',
-    beginAngle:90,
-    endAngle:200,
-    name:'Example2'
-};
-var data3 = {
-    id:3,
-    numLayers:numLayers,
-    color:'#BA55D3',
-    beginAngle:200,
-    endAngle:10,
-    name:'Example3'
-};
-
-createSector(data1);
-createSector(data2);
-createSector(data3);
-
-
-/*$('canvas').drawLine({
-    layer: true,
-    draggable: true,
-    strokeStyle: '#000',
-    strokeWidth: 5,
-    rounded: true,
-    x1: 150, y1: 200,
-    x2: 150, y2: 0,
-    restrictDragToAxis: 'x',
-    click: function(layer) {
-        console.log(layer.x1);
-        console.log(layer);
-        this.x1 = 150;
-        this.y1 = 200;
-    }
-});*/
-
 function rayAndCircleByLabel(layer,id) {
     var pol = cartesian2Polar(layer.x, layer.y);
     var dec = cartesian2Dec(bigRadius+30,pol.degr);
-    var Label = $('canvas').getLayer('myLabel');
+    var Label = $('canvas').getLayer(layer.name);
     Label.fillStyle = "Red";
     $('canvas').drawArc({
         layer: true,
@@ -200,62 +152,82 @@ function delRayAndCircleByLabel(id) {
     $('canvas').removeLayer('lineByLabel'+id);
 }
 
-$('canvas').drawArc({
-    layer: true,
-    draggable: true,
-    name: 'myLabel',
-    fillStyle: '#36c',
-    x: CenterX, y: 150,
-    radius: 10,
-    data: {'id':22},
-    dragstop: function(layer) {
-        console.log('X - '+layer.x);
-        console.log('Y - '+layer.y);
-        var pol = cartesian2Polar(layer.x, layer.y);
-        console.log(pol);
-        var dec = cartesian2Dec(pol.distance,pol.degr);
-        console.log(dec);
-    },
-    mouseover: function(layer) {
-        rayAndCircleByLabel(layer,layer.data.id);
-    },
-    mouseout: function(layer) {
-        var Label = $('canvas').getLayer('myLabel');
-        Label.fillStyle = "#36c";
-        delRayAndCircleByLabel(layer.data.id);
-    },
-    dblclick: function(layer) {
-        $('#pop_lable').css('display','block').attr('id',layer.data.id);
-    },
-});
+function createLable(data) {
+    var LabelCoord = cartesian2Dec(data.radius*bigRadius, data.degr)
+    $('canvas').drawArc({
+        layer: true,
+        draggable: true,
+        name: 'myLabel'+data.id,
+        fillStyle: colorLable,
+        x: LabelCoord.X, y: LabelCoord.Y,
+        radius: radiusLable,
+        data: {'id' : data.id},
+        dragstop: function(layer) {
+            console.log('X - '+layer.x);
+            console.log('Y - '+layer.y);
+            var pol = cartesian2Polar(layer.x, layer.y);
+            console.log(pol);
+            var dec = cartesian2Dec(pol.distance,pol.degr);
+            console.log(dec);
+        },
+        mouseover: function(layer) {
+            rayAndCircleByLabel(layer,layer.data.id);
+        },
+        mouseout: function(layer) {
+            var Label = $('canvas').getLayer(layer.name);
+            Label.fillStyle = colorLable;
+            delRayAndCircleByLabel(layer.data.id);
+        },
+        dblclick: function(layer) {
+            $('#pop_lable').css('display','block').attr('id',layer.data.id);
+        },
+    });
+}
 
-$('canvas').drawArc({
-    layer: true,
-    draggable: true,
-    name: 'myLabel2',
-    fillStyle: '#36c',
-    x: CenterX+40, y: 200,
-    radius: 10,
-    data: {'id':12},
-    dragstop: function(layer) {
-        console.log('X - '+layer.x);
-        console.log('Y - '+layer.y);
-        var pol = cartesian2Polar(layer.x, layer.y);
-        console.log(pol);
-        var dec = cartesian2Dec(pol.distance,pol.degr);
-        console.log(dec);
-    },
-    mouseover: function(layer) {
-        rayAndCircleByLabel(layer,layer.data.id);
-        var Label = $('canvas').getLayer('myLabel2');
-        Label.fillStyle = "Red";
-    },
-    mouseout: function(layer) {
-        var Label = $('canvas').getLayer('myLabel2');
-        Label.fillStyle = "#36c";
-        delRayAndCircleByLabel(layer.data.id);
-    },
-    dblclick: function(layer) {
-        $('#pop_lable').css('display','block').attr('id',layer.data.id);
-    },
-});
+var numLayers = 4;
+
+var dataSector1 = {
+    id:1,
+    numLayers:numLayers,
+    color:'#8FBC8F',
+    beginAngle:10,
+    endAngle:90,
+    name:'Example1'
+};
+
+var dataSector2 = {
+    id:2,
+    numLayers:numLayers,
+    color:'#FFD700',
+    beginAngle:90,
+    endAngle:200,
+    name:'Example2'
+};
+var dataSector3 = {
+    id:3,
+    numLayers:numLayers,
+    color:'#BA55D3',
+    beginAngle:200,
+    endAngle:10,
+    name:'Example3'
+};
+
+createSector(dataSector1);
+createSector(dataSector2);
+createSector(dataSector3);
+
+var dataLabel1 = {
+    id:1,
+    radius:0.33,
+    degr:86
+};
+
+var dataLabel2 = {
+    id:2,
+    radius:0.71,
+    degr:230,
+};
+
+createLable(dataLabel1);
+createLable(dataLabel2);
+
