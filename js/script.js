@@ -2,9 +2,9 @@ var CenterX = 300;
 var CenterY = 300;
 var bigRadius = 200;
 var colorRayAndCircleByLable = '#48D1CC';
-var colorLable = '#36c';
-var radiusLable = 10;
-var colorSelectLable = "Red";
+var colorLabel = '#36c';
+var radiusLabel = 10;
+var colorSelectLabel = "Red";
 /**
  * Из декартовой в полярную систему координат.
  *
@@ -157,29 +157,27 @@ function createLable(data) {
         layer: true,
         draggable: true,
         name: 'myLabel'+data.id,
-        fillStyle: colorLable,
+        fillStyle: colorLabel,
         x: LabelCoord.X, y: LabelCoord.Y,
-        radius: radiusLable,
+        radius: radiusLabel,
         data: {'id' : data.id},
         dragstop: function(layer) {
             var pol = cartesian2Polar(layer.x, layer.y);
             var dec = cartesian2Dec(pol.distance,pol.degr);
             delRayAndCircleByLabel(layer.data.id);
         },
-        dragstart: function(layer) {
-            delRayAndCircleByLabel(layer.data.id);
-        },
         drag: function(layer) {
+            delRayAndCircleByLabel(layer.data.id);
             rayAndCircleByLabel(layer,layer.data.id);
         },
         mouseover: function(layer) {
             var Label = $('canvas').getLayer(layer.name);
-            Label.fillStyle = colorSelectLable;
+            Label.fillStyle = colorSelectLabel;
             rayAndCircleByLabel(layer,layer.data.id);
         },
         mouseout: function(layer) {
             var Label = $('canvas').getLayer(layer.name);
-            Label.fillStyle = colorLable;
+            Label.fillStyle = colorLabel;
             delRayAndCircleByLabel(layer.data.id);
         },
         dblclick: function(layer) {
