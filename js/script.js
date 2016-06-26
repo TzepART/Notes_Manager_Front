@@ -62,13 +62,19 @@ function changeColorLayers(color,numLayers) {
     var tempColor = arColor;
     var arRBA = [];
     var i = 0;
-    var difColor = (256-arColor[0])/numLayers;
-    var red = arColor[0] + difColor;
-    for(red; red <= 256; red = red + difColor){
+    var difColorRed = (256-arColor[0])/numLayers;
+    var difColorGreen = (arColor[1])/(numLayers-1);
+    var difColorBlue = (arColor[2])/(numLayers-1);
+    var red = arColor[0] + difColorRed;
+    var green = arColor[1];
+    var blue = arColor[2];
+    for(red; red <= 256; red = red + difColorRed){
         tempColor[0] = Math.floor(red);
-        console.log(tempColor);
-        console.log(red);
+        tempColor[1] = Math.floor(green);
+        tempColor[2] = Math.floor(blue);
         arRBA[i] = hexArrayInRgbString(tempColor);
+        green = green - difColorGreen;
+        blue = blue - difColorBlue;
         i++;
     }
     return arRBA;
@@ -109,9 +115,11 @@ function createSector(data) {
         });
 }
 
+var numLayers = 4;
+
 var data1 = {
     id:1,
-    numLayers:5,
+    numLayers:numLayers,
     color:'#8FBC8F',
     beginAngle:10,
     endAngle:90,
@@ -120,7 +128,7 @@ var data1 = {
 
 var data2 = {
     id:2,
-    numLayers:5,
+    numLayers:numLayers,
     color:'#FFD700',
     beginAngle:90,
     endAngle:200,
@@ -128,7 +136,7 @@ var data2 = {
 };
 var data3 = {
     id:3,
-    numLayers:5,
+    numLayers:numLayers,
     color:'#BA55D3',
     beginAngle:200,
     endAngle:10,
@@ -208,6 +216,7 @@ $('canvas').drawArc({
     },
     mouseout: function(layer) {
         var Label = $('canvas').getLayer('myLabel');
+        Label.fillStyle = "Blue";
         $('canvas').removeLayer('circle1');
         $('canvas').removeLayer('line1');
     },
@@ -284,6 +293,7 @@ $('canvas').drawArc({
         var Label = $('canvas').getLayer('myLabel2');
         $('canvas').removeLayer('circle2');
         $('canvas').removeLayer('line2');
+        Label.fillStyle = "Blue";
     },
     // dragstart: function(layer) {
     //     console.log('dragstart');
