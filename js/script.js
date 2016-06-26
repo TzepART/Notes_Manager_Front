@@ -2,8 +2,9 @@ var CenterX = 300;
 var CenterY = 300;
 var bigRadius = 200;
 var colorRayAndCircleByLable = '#48D1CC';
-var colorLable = '#36c';
-var radiusLable = 10;
+var colorLabel = '#36c';
+var radiusLabel = 10;
+var colorSelectLabel = "Red";
 /**
  * Из декартовой в полярную систему координат.
  *
@@ -127,8 +128,6 @@ function createSector(data) {
 function rayAndCircleByLabel(layer,id) {
     var pol = cartesian2Polar(layer.x, layer.y);
     var dec = cartesian2Dec(bigRadius+30,pol.degr);
-    var Label = $('canvas').getLayer(layer.name);
-    Label.fillStyle = "Red";
     $('canvas').drawArc({
         layer: true,
         strokeStyle: colorRayAndCircleByLable,
@@ -158,24 +157,27 @@ function createLable(data) {
         layer: true,
         draggable: true,
         name: 'myLabel'+data.id,
-        fillStyle: colorLable,
+        fillStyle: colorLabel,
         x: LabelCoord.X, y: LabelCoord.Y,
-        radius: radiusLable,
+        radius: radiusLabel,
         data: {'id' : data.id},
         dragstop: function(layer) {
-            console.log('X - '+layer.x);
-            console.log('Y - '+layer.y);
             var pol = cartesian2Polar(layer.x, layer.y);
-            console.log(pol);
             var dec = cartesian2Dec(pol.distance,pol.degr);
-            console.log(dec);
+            delRayAndCircleByLabel(layer.data.id);
+        },
+        drag: function(layer) {
+            delRayAndCircleByLabel(layer.data.id);
+            rayAndCircleByLabel(layer,layer.data.id);
         },
         mouseover: function(layer) {
+            var Label = $('canvas').getLayer(layer.name);
+            Label.fillStyle = colorSelectLabel;
             rayAndCircleByLabel(layer,layer.data.id);
         },
         mouseout: function(layer) {
             var Label = $('canvas').getLayer(layer.name);
-            Label.fillStyle = colorLable;
+            Label.fillStyle = colorLabel;
             delRayAndCircleByLabel(layer.data.id);
         },
         dblclick: function(layer) {
@@ -184,7 +186,11 @@ function createLable(data) {
     });
 }
 
-var numLayers = 4;
+/*
+* Block with creating elements
+* */
+
+var numLayers = 5;
 
 var dataSector1 = {
     id:1,
