@@ -77,18 +77,21 @@ function changeColorLayers(color,numLayers) {
 function createSector(data) {
     var arColors = changeColorLayers(data.color,data.numLayers);
     var i;
+    var difRadius = bigRadius/data.numLayers;
+    var radius = bigRadius;
     for(i=1;i<=data.numLayers;i++){
         $('canvas').drawSlice({
             layer: true,
-            name: 'slice'+i,
+            name: 'slice'+data.id+i,
             groups: ['chart', 'slices'],
-            fillStyle: arColors[i],
+            fillStyle: arColors[i-1],
             x: CenterX, y: CenterY,
             start: data.beginAngle, end: data.endAngle,
-            radius: bigRadius/i,
+            radius: radius,
             strokeStyle: '#f60',
             strokeWidth: 3,
-        })
+        });
+        radius = radius - difRadius;
     }
     $('canvas')
         .drawText({
@@ -99,153 +102,43 @@ function createSector(data) {
             text: data.name,
             x: CenterX, y: CenterY,
             radius: bigRadius+20,
-            rotate: (data.beginAngle+data.endAngle)/2,
+            rotate: (data.beginAngle<data.endAngle)?(data.beginAngle+data.endAngle)/2:(data.beginAngle+data.endAngle+360)/2,
             dblclick: function(layer) {
-                console.log("Sector");
                 $('#pop_sector').css('display','block').attr('id',555);
             },
         });
 }
 
+var data1 = {
+    id:1,
+    numLayers:5,
+    color:'#8FBC8F',
+    beginAngle:10,
+    endAngle:90,
+    name:'Example1'
+};
 
+var data2 = {
+    id:2,
+    numLayers:5,
+    color:'#FFD700',
+    beginAngle:90,
+    endAngle:200,
+    name:'Example2'
+};
+var data3 = {
+    id:3,
+    numLayers:5,
+    color:'#BA55D3',
+    beginAngle:200,
+    endAngle:10,
+    name:'Example3'
+};
 
-$('canvas')
-    .drawSlice({
-        layer: true,
-        name: 'blue-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: 'blue',
-        x: CenterX, y: CenterY,
-        start: -45, end: 15,
-        radius: 200,
-        strokeStyle: '#f60',
-        strokeWidth: 3,
-        click: function(layer) {
-            console.log("blue");
-        }
-    })
-    .drawSlice({
-        layer: true,
-        name: 'red-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: '#c33',
-        x: CenterX, y: CenterY,
-        start: -45, end: 15,
-        radius: 100,
-        strokeStyle: '#f60',
-        strokeWidth: 3,
-        click: function(layer) {
-            console.log("red");
-        }
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Trebuchet MS, sans-serif',
-        fontSize: 18,
-        text: 'Творчество',
-        x: CenterX, y: CenterY,
-        radius: 220,
-        rotate: -15,
-        dblclick: function(layer) {
-            console.log("Sector");
-            $('#pop_sector').css('display','block').attr('id',555);
-        },
-    })
-    .drawSlice({
-        layer: true,
-        name: 'green-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: 'green',
-        x: CenterX, y: CenterY,
-        start: 15, end: 90,
-        radius: 200,
-        strokeStyle: '#f60',
-        strokeWidth: 3,
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Ubuntu, sans-serif',
-        fontSize: 18,
-        text: 'Семья',
-        x: CenterX, y: CenterY,
-        radius: 220,
-        rotate: 55
-    })
-    .drawSlice({
-        layer: true,
-        name: 'black-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: 'black',
-        x: CenterX, y: CenterY,
-        start: 90, end: -45,
-        radius: 200,
-        strokeStyle: '#f60',
-        strokeWidth: 3,
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Ubuntu, sans-serif',
-        fontSize: 18,
-        text: 'Отдых',
-        x: CenterX, y: CenterY,
-        radius: 240,
-        rotate: 200
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Ubuntu, sans-serif',
-        fontSize: 18,
-        text: 'Общее',
-        x: CenterX, y: CenterY,
-        radius: 220,
-        rotate: 110
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Ubuntu, sans-serif',
-        fontSize: 18,
-        text: 'Виза',
-        x: CenterX, y: CenterY,
-        radius: 220,
-        rotate: 200
-    })
-    .drawText({
-        layer: true,
-        fillStyle: '#c33',
-        fontFamily: 'Ubuntu, sans-serif',
-        fontSize: 18,
-        text: 'Отель',
-        x: CenterX, y: CenterY,
-        radius: 220,
-        rotate: 260
-    })
-    .drawSlice({
-        layer: true,
-        name: 'grey-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: 'grey',
-        x: CenterX, y: CenterY,
-        start: 15, end: 90,
-        radius: 100,
-        strokeStyle: '#f60',
-        strokeWidth: 3,
-    })
-    .drawSlice({
-        layer: true,
-        name: 'orange-slice',
-        groups: ['chart', 'slices'],
-        fillStyle: 'orange',
-        x: CenterX, y: CenterY,
-        start: 90, end: -45,
-        radius: 100,
-        strokeStyle: '#f60',
-        strokeWidth: 3,
-    });
+createSector(data1);
+createSector(data2);
+createSector(data3);
+
 
 /*$('canvas').drawLine({
     layer: true,
