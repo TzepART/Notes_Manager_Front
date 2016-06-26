@@ -178,7 +178,7 @@ function createLable(data) {
         mouseout: function(layer) {
             var Label = $('canvas').getLayer(layer.name);
             Label.fillStyle = colorLabel;
-            // delRayAndCircleByLabel(layer.data.id);
+            delRayAndCircleByLabel(layer.data.id);
         },
         dblclick: function(layer) {
             $('#pop_lable').css('display','block').attr('id',layer.data.id);
