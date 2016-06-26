@@ -12,13 +12,14 @@ $('canvas')
         }
     })
     .drawText({
+        layer: true,
         fillStyle: '#c33',
-        fontFamily: 'Ubuntu, sans-serif',
+        fontFamily: 'Trebuchet MS, sans-serif',
         fontSize: 18,
         text: 'Творчество',
         x: 300, y: 300,
         radius: 220,
-        rotate: -40
+        rotate: -15
     })
     .drawSlice({
         layer: true,
@@ -30,13 +31,14 @@ $('canvas')
         radius: 200,
     })
     .drawText({
+        layer: true,
         fillStyle: '#c33',
         fontFamily: 'Ubuntu, sans-serif',
         fontSize: 18,
         text: 'Семья',
         x: 300, y: 300,
         radius: 220,
-        rotate: 25
+        rotate: 55
     })
     .drawSlice({
         layer: true,
@@ -48,13 +50,14 @@ $('canvas')
         radius: 200,
     })
     .drawText({
+        layer: true,
         fillStyle: '#c33',
         fontFamily: 'Ubuntu, sans-serif',
         fontSize: 18,
         text: 'Отдых',
         x: 300, y: 300,
         radius: 220,
-        rotate: 100
+        rotate: 200
     })
     .drawSlice({
         layer: true,
@@ -139,7 +142,7 @@ $('canvas').drawArc({
     //     console.log('dragstart');
     // },
     dblclick: function(layer) {
-        $('#pop_lable').css('display','block').attr('id',555);
+        console.log('dblclick');
     },
     // dragstop: function(layer) {
     //     console.log('dragstop');
