@@ -17,6 +17,28 @@ function cartesian2Polar(x, y) {
     return polarCoor;
 }
 
+/**
+ * From polar in dec
+ *
+ * @param {float} radius
+ * @param {float} degr
+ * @returns {object}
+ */
+function cartesian2Dec(radius, degr) {
+    radians = (degr-90)*(Math.PI/180);
+    if(degr >= 0 && degr <= 180){
+        tan  = Math.tan(radians);
+        x = Math.sqrt((radius*radius)/(tan*tan+1));
+        y = x*tan;
+    }else{
+        tan  = Math.tan(-radians);
+        x = -Math.sqrt((radius*radius)/(tan*tan+1));
+        y = -x*tan;
+    }
+    decCoor = {X: x+CenterX, Y: y+CenterY};
+    return decCoor;
+}
+
 
 $('canvas')
     .drawSlice({
@@ -166,9 +188,12 @@ $('canvas').drawArc({
     radius: 10,
     data: {'id':22},
     dragstop: function(layer) {
-        console.log(layer.x);
-        console.log(layer.y);
-        console.log(cartesian2Polar(layer.x, layer.y));
+        console.log('X - '+layer.x);
+        console.log('Y - '+layer.y);
+        var pol = cartesian2Polar(layer.x, layer.y);
+        console.log(pol);
+        var dec = cartesian2Dec(pol.distance,pol.degr);
+        console.log(dec);
     },
     // dblclick: function(layer) {
     //     console.log('dblclick');
