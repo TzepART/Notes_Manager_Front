@@ -92,6 +92,17 @@ function createSector(data) {
     var i;
     var difRadius = bigRadius/data.numLayers;
     var radius = bigRadius;
+
+    $('canvas').drawArc({
+        layer: true,
+        name: 'mainArc'+data.id,
+        strokeStyle: '#000',
+        strokeWidth: 2,
+        x: CenterX, y: CenterY,
+        radius: bigRadius,
+        start: data.beginAngle, end: data.endAngle,
+    });
+
     for(i=1;i<=data.numLayers;i++){
         $('canvas').drawSlice({
             layer: true,
@@ -108,7 +119,18 @@ function createSector(data) {
             },   
             click: function(layer) {
                 $('#pop_sector').css('display','block').attr('id',555);
+                $('canvas').setLayer('mainArc'+data.id, {
+                    shadowColor: shadowColor,
+                    shadowBlur: 20
+                })
+                .drawLayers();
             },
+            mouseout: function(layer) {
+                $('canvas').setLayer('mainArc'+data.id, {
+                    shadowBlur: 0
+                })
+                .drawLayers();
+            }
         });
         radius = radius - difRadius;
     }
@@ -236,8 +258,14 @@ var dataLabel1 = {
 var dataLabel2 = {
     id:2,
     radius:0.71,
-    degr:230,
+    degr:230
 };
+
+$(document).ready(function() {
+    $('canvas').triggerLayerEvent('myLabel1', 'mouseover');
+    $('canvas').triggerLayerEvent('slice11', 'click');
+});
+
 
 createLable(dataLabel1);
 createLable(dataLabel2);
