@@ -1,7 +1,7 @@
 var CenterX = 315;
 var CenterY = 315;
 var bigRadius = 250;
-var colorRayAndCircleByLable = '#48D1CC';
+var colorRayAndCircleByLabel = '#48D1CC';
 var colorLabel = '#36c';
 var radiusLabel = 10;
 var colorSelectLabel = "Red";
@@ -167,7 +167,7 @@ function rayAndCircleByLabel(layer,id) {
     var dec = cartesian2Dec(bigRadius+30,pol.degr);
     $('canvas').drawArc({
         layer: true,
-        strokeStyle: colorRayAndCircleByLable,
+        strokeStyle: colorRayAndCircleByLabel,
         strokeWidth: 3,
         name: 'circleByLabel'+id,
         x: CenterX, y: CenterY,
@@ -177,7 +177,7 @@ function rayAndCircleByLabel(layer,id) {
         layer: true,
         strokeWidth: 3,
         name: 'lineByLabel'+id,
-        strokeStyle: colorRayAndCircleByLable,
+        strokeStyle: colorRayAndCircleByLabel,
         x1: CenterX, y1: CenterY,
         x2: dec.X, y2: dec.Y,
     });
@@ -217,7 +217,7 @@ function delRayNamePopUpAndCircleByLabel(id) {
 }
 
 
-function createLable(data) {
+function createLabel(data) {
     var LabelCoord = cartesian2Dec(data.radius*bigRadius, data.degr)
     $('canvas').drawArc({
         layer: true,
@@ -250,7 +250,7 @@ function createLable(data) {
             delRayNamePopUpAndCircleByLabel(layer.data.id);
         },
         dblclick: function(layer) {
-            $('#pop_lable').css('display','block').attr('id',layer.data.id);
+            $('#pop_label').css('display','block').attr('id',layer.data.id);
         },
     });
 }
@@ -259,7 +259,7 @@ function createLable(data) {
 * Block with creating elements
 * */
 
-var numLayers = 3;
+var numLayers = 4;
 
 var dataSector1 = {
     id:1,
@@ -311,6 +311,5 @@ $(document).ready(function() {
 });
 
 
-createLable(dataLabel1);
-createLable(dataLabel2);
-
+createLabel(dataLabel1);
+createLabel(dataLabel2);
