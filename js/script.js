@@ -5,6 +5,9 @@ var colorRayAndCircleByLable = '#48D1CC';
 var colorLabel = '#36c';
 var radiusLabel = 10;
 var colorSelectLabel = "Red";
+var shadowLabelSize = 10;
+var shadowColor = "black";
+
 /**
  * Из декартовой в полярную систему координат.
  *
@@ -161,6 +164,8 @@ function createLable(data) {
         x: LabelCoord.X, y: LabelCoord.Y,
         radius: radiusLabel,
         data: {'id' : data.id},
+        shadowColor: shadowColor,
+        shadowBlur: shadowLabelSize,
         dragstop: function(layer) {
             var pol = cartesian2Polar(layer.x, layer.y);
             var dec = cartesian2Dec(pol.distance,pol.degr);
