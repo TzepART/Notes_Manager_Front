@@ -88,6 +88,7 @@ function changeColorLayers(color,numLayers) {
         blue = blue - difColorBlue;
         i++;
     }
+    console.log(arRBA);
     return arRBA;
 }
 
