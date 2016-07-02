@@ -19,9 +19,9 @@
 
     <div class="row">
         <form method="post" name="form1" action="#" enctype="multipart/form-data"
-              class="col-md-4 col-md-offset-4 create_circle_form">
+              class="jumbotron col-md-6 col-md-offset-3 create_circle_form">
 
-            <h2>Создать Окружность</h2>
+            <h2 style="text-align: center">Создать Окружность</h2>
             <div class="form-group create_circle">
                 <input type="text" name="name" placeholder="Название окружности" class="form-control"/>
             </div>
@@ -31,26 +31,31 @@
             </div>
 
 
-            <h2>Создать секторы</h2>
+            <h2 style="text-align: center">Создать секторы</h2>
 
-            <div class="form-group create_sector">
-                <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
-                <input type="color" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="#7FFF00" autocomplete="off"/>
+            <div id="formCircleCreate">
+                <div class="form-group create_sector">
+                    <input type="text" placeholder="Название сектора"  name="sector_name[1]" class="form-control" value="" autocomplete="off"/>
+                    <input type="color" placeholder="Цвет сектора"  name="sector_color[1]" class="form-control" value="#7FFF00" autocomplete="off"/>
+                    <input type="button" class="form-control" onclick="return deleteField(this)" href="#" value="x">
+                </div>
+
+                <div class="form-group create_sector">
+                    <input type="text" placeholder="Название сектора"  name="sector_name[2]" class="form-control" value="" autocomplete="off"/>
+                    <input type="color" placeholder="Цвет сектора"  name="sector_color[2]" class="form-control" value="#FF8C00" autocomplete="off"/>
+                    <input type="button" class="form-control" onclick="return deleteField(this)" href="#" value="x">
+                </div>
+
+                <div class="form-group create_sector">
+                    <input type="text" placeholder="Название сектора"  name="sector_name[3]" class="form-control" value="" autocomplete="off"/>
+                    <input type="color" placeholder="Цвет сектора"  name="sector_color[3]" class="form-control" value="#6495ED" autocomplete="off"/>
+                    <input type="button" class="form-control" onclick="return deleteField(this)" href="#" value="x">
+                </div>
             </div>
 
-            <div class="form-group create_sector">
-                <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
-                <input type="color" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="#FF8C00" autocomplete="off"/>
-            </div>
-
-            <div class="form-group create_sector">
-                <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
-                <input type="color" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="#6495ED" autocomplete="off"/>
-            </div>
-
-            <div class="form-group form_submit">
-                <input name="create_sector" value="Добавить сектор" class="btn btn-primary" type="submit">
-                <input name="save" value="Создать окружность" class="btn btn-success" type="submit">
+            <div class="form-group form_submit" >
+                <a class="btn btn-primary btn-block" onclick="return addField()" href="#">Добавить сектор</a>
+                <input name="save" value="Создать окружность" class="btn btn-success btn-block" type="submit">
             </div>
         </form>
     </div>
