@@ -171,6 +171,7 @@ function rayAndCircleByLabel(layer,id) {
         strokeStyle: colorRayAndCircleByLabel,
         strokeWidth: 3,
         name: 'circleByLabel'+id,
+        groups: ['circleByLabel'],
         x: CenterX, y: CenterY,
         radius: pol.distance,
     });
@@ -178,6 +179,7 @@ function rayAndCircleByLabel(layer,id) {
         layer: true,
         strokeWidth: 3,
         name: 'lineByLabel'+id,
+        groups: ['lineByLabel'],
         strokeStyle: colorRayAndCircleByLabel,
         x1: CenterX, y1: CenterY,
         x2: dec.X, y2: dec.Y,
@@ -193,6 +195,7 @@ function createNamePopUpLabel(id,x,y,text) {
         strokeStyle: '#c33',
         strokeWidth: 4,
         name: 'nameLabelPopup'+id,
+        groups: ['nameLabelPopup'],
         x: x + widthPopUp/2, y: y - heightPopUp/2 - 10,
         width: 200,
         height: 30,
@@ -201,6 +204,7 @@ function createNamePopUpLabel(id,x,y,text) {
     $('canvas').drawText({
         layer: true,
         name: 'nameLabelPopupText'+id,
+        groups: ['nameLabelPopupText'],
         fillStyle: 'black',
         strokeWidth: 2,
         x: x + widthPopUp/2, y: y - heightPopUp/2 - 10,
@@ -215,6 +219,13 @@ function delRayNamePopUpAndCircleByLabel(id) {
     $('canvas').removeLayer('lineByLabel'+id);
     $('canvas').removeLayer('nameLabelPopup'+id);
     $('canvas').removeLayer('nameLabelPopupText'+id);
+}
+
+function delRayNamePopUpAndCircleAllLabels() {
+    $('canvas').removeLayerGroup('circleByLabel');
+    $('canvas').removeLayerGroup('lineByLabel');
+    $('canvas').removeLayerGroup('nameLabelPopup');
+    $('canvas').removeLayerGroup('nameLabelPopupText');
 }
 
 
@@ -242,6 +253,7 @@ function createLabel(data) {
         mouseover: function(layer) {
             var Label = $('canvas').getLayer(layer.name);
             Label.fillStyle = colorSelectLabel;
+            delRayNamePopUpAndCircleAllLabels();
             rayAndCircleByLabel(layer,layer.data.id);
             createNamePopUpLabel(layer.data.id,layer.x,layer.y,layer.data.name);
         },
