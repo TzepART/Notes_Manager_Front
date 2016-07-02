@@ -294,8 +294,8 @@ createSector(dataSector3);
 
 var dataLabel1 = {
     id:1,
-    radius:0.33,
-    degr:86,
+    radius:0.13,
+    degr:56,
     name:'Note1'
 };
 
