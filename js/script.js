@@ -124,10 +124,12 @@ function createSector(data) {
             strokeStyle: '#f60',
             strokeWidth: 3,
             dblclick: function(layer) {
-                $('#pop_create_sector').css('display','block').attr('id',555);
-            },   
+                var polar = cartesian2Polar(layer.eventX, layer.eventY);
+                var link = $('#create_label_link').attr('href','create_note.html?circle_id='+data.circle_id+'&radius='+polar.distance/bigRadius+'&degr='+polar.degr);
+                link.removeClass( "btn-primary" ).addClass( "btn-danger" );
+                link.text('Добавить заметку в выбрнный сектор');
+            },
             click: function(layer) {
-                $('#pop_sector').css('display','block').attr('id',555);
                 $('canvas').setLayer('mainArc'+data.id, {
                     shadowColor: shadowColor,
                     shadowBlur: 20
@@ -263,7 +265,7 @@ function createLabel(data) {
             delRayNamePopUpAndCircleByLabel(layer.data.id);
         },
         dblclick: function(layer) {
-            $('#pop_label').css('display','block').attr('id',layer.data.id);
+            $('#pop_label_link').css('display','block').attr('href','list_notes.html?id='+layer.data.id);
         },
     });
 }
@@ -280,7 +282,8 @@ var dataSector1 = {
     color:'#8FBC8F',
     beginAngle:10,
     endAngle:90,
-    name:'Example1'
+    name:'Example1',
+    circle_id: 1,
 };
 
 var dataSector2 = {
@@ -289,7 +292,8 @@ var dataSector2 = {
     color:'#FFD700',
     beginAngle:90,
     endAngle:200,
-    name:'Example2'
+    name:'Example2',
+    circle_id: 1,
 };
 var dataSector3 = {
     id:3,
@@ -297,7 +301,8 @@ var dataSector3 = {
     color:'#BA55D3',
     beginAngle:200,
     endAngle:10,
-    name:'Example3'
+    name:'Example3',
+    circle_id: 1,
 };
 
 createSector(dataSector1);
