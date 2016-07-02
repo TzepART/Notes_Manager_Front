@@ -124,10 +124,12 @@ function createSector(data) {
             strokeStyle: '#f60',
             strokeWidth: 3,
             dblclick: function(layer) {
-                $('#pop_create_sector').css('display','block').attr('id',555);
-            },   
+                var polar = cartesian2Polar(layer.eventX, layer.eventY);
+                var link = $('#create_label_link').attr('href','create_note.html?circle_id='+data.circle_id+'&radius='+polar.distance/bigRadius+'&degr='+polar.degr);
+                link.removeClass( "btn-primary" ).addClass( "btn-danger" );
+                link.text('Добавить заметку в выбрнный сектор');
+            },
             click: function(layer) {
-                $('#pop_sector').css('display','block').attr('id',555);
                 $('canvas').setLayer('mainArc'+data.id, {
                     shadowColor: shadowColor,
                     shadowBlur: 20
@@ -171,6 +173,7 @@ function rayAndCircleByLabel(layer,id) {
         strokeStyle: colorRayAndCircleByLabel,
         strokeWidth: 3,
         name: 'circleByLabel'+id,
+        groups: ['circleByLabel'],
         x: CenterX, y: CenterY,
         radius: pol.distance,
     });
@@ -178,6 +181,7 @@ function rayAndCircleByLabel(layer,id) {
         layer: true,
         strokeWidth: 3,
         name: 'lineByLabel'+id,
+        groups: ['lineByLabel'],
         strokeStyle: colorRayAndCircleByLabel,
         x1: CenterX, y1: CenterY,
         x2: dec.X, y2: dec.Y,
@@ -193,6 +197,7 @@ function createNamePopUpLabel(id,x,y,text) {
         strokeStyle: '#c33',
         strokeWidth: 4,
         name: 'nameLabelPopup'+id,
+        groups: ['nameLabelPopup'],
         x: x + widthPopUp/2, y: y - heightPopUp/2 - 10,
         width: 200,
         height: 30,
@@ -201,6 +206,7 @@ function createNamePopUpLabel(id,x,y,text) {
     $('canvas').drawText({
         layer: true,
         name: 'nameLabelPopupText'+id,
+        groups: ['nameLabelPopupText'],
         fillStyle: 'black',
         strokeWidth: 2,
         x: x + widthPopUp/2, y: y - heightPopUp/2 - 10,
@@ -215,6 +221,13 @@ function delRayNamePopUpAndCircleByLabel(id) {
     $('canvas').removeLayer('lineByLabel'+id);
     $('canvas').removeLayer('nameLabelPopup'+id);
     $('canvas').removeLayer('nameLabelPopupText'+id);
+}
+
+function delRayNamePopUpAndCircleAllLabels() {
+    $('canvas').removeLayerGroup('circleByLabel');
+    $('canvas').removeLayerGroup('lineByLabel');
+    $('canvas').removeLayerGroup('nameLabelPopup');
+    $('canvas').removeLayerGroup('nameLabelPopupText');
 }
 
 
@@ -242,6 +255,7 @@ function createLabel(data) {
         mouseover: function(layer) {
             var Label = $('canvas').getLayer(layer.name);
             Label.fillStyle = colorSelectLabel;
+            delRayNamePopUpAndCircleAllLabels();
             rayAndCircleByLabel(layer,layer.data.id);
             createNamePopUpLabel(layer.data.id,layer.x,layer.y,layer.data.name);
         },
@@ -251,7 +265,7 @@ function createLabel(data) {
             delRayNamePopUpAndCircleByLabel(layer.data.id);
         },
         dblclick: function(layer) {
-            $('#pop_label').css('display','block').attr('id',layer.data.id);
+            $('#pop_label_link').css('display','block').attr('href','list_notes.html?id='+layer.data.id);
         },
     });
 }
@@ -268,7 +282,8 @@ var dataSector1 = {
     color:'#8FBC8F',
     beginAngle:10,
     endAngle:90,
-    name:'Example1'
+    name:'Example1',
+    circle_id: 1,
 };
 
 var dataSector2 = {
@@ -277,7 +292,8 @@ var dataSector2 = {
     color:'#FFD700',
     beginAngle:90,
     endAngle:200,
-    name:'Example2'
+    name:'Example2',
+    circle_id: 1,
 };
 var dataSector3 = {
     id:3,
@@ -285,7 +301,8 @@ var dataSector3 = {
     color:'#BA55D3',
     beginAngle:200,
     endAngle:10,
-    name:'Example3'
+    name:'Example3',
+    circle_id: 1,
 };
 
 createSector(dataSector1);

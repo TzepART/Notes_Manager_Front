@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="import" href="head.html">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Notes Manager</title>  <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/additional_style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body>
 <div class="container">
@@ -39,7 +47,7 @@
                                        aria-expanded="false" aria-controls="collapseExample">Notes1</a>
                                     <a href="detail_circle.html?id=1"><i class="fa fa-adjust fa-lg"></i></a>
                                     <a href="notes_edit.html?id=1"><i class="fa fa-pencil fa-lg"></i></a>
-                                    <div class="collapse" id="collapseExample">
+                                    <div class="collapse collapse_note" id="collapseExample">
                                         <div class="well">
                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque delectus
                                             doloribus eius, exercitationem impedit itaque provident sapiente sit tempora
@@ -160,6 +168,7 @@
                     </div>
                 </div>
             </div>
+            <a href="detail_circle.html?id=1" class="btn btn-primary btn-lg btn-block">Окружность</a>
         </div>
     </div>
 
