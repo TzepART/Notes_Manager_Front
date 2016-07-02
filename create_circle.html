@@ -33,27 +33,80 @@
 
             <h2 style="text-align: center">Создать секторы</h2>
 
-            <div class="form-group create_sector">
-                <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
-                <input type="color" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="#7FFF00" autocomplete="off"/>
-            </div>
+            <div id="formCircleCreate">
+                <div class="form-group create_sector">
+                    <input type="text" placeholder="Название сектора"  name="sector_name[1]" class="form-control" value="" autocomplete="off"/>
+                    <input type="color" placeholder="Цвет сектора"  name="sector_color[1]" class="form-control" value="#7FFF00" autocomplete="off"/>
+                    <input type="button" class="form-control" onclick="return deleteField(this)" href="#" value="Del">
+                </div>
 
-            <div class="form-group create_sector">
-                <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
-                <input type="color" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="#FF8C00" autocomplete="off"/>
-            </div>
+                <div class="form-group create_sector">
+                    <input type="text" placeholder="Название сектора"  name="sector_name[2]" class="form-control" value="" autocomplete="off"/>
+                    <input type="color" placeholder="Цвет сектора"  name="sector_color[2]" class="form-control" value="#FF8C00" autocomplete="off"/>
+                    <input type="button" class="form-control" onclick="return deleteField(this)" href="#" value="Del">
+                </div>
 
-            <div class="form-group create_sector">
-                <input type="text" placeholder="Название сектора"  name="sector_name[]" class="form-control" value="" autocomplete="off"/>
-                <input type="color" placeholder="Цвет сектора"  name="sector_color[]" class="form-control" value="#6495ED" autocomplete="off"/>
+                <div class="form-group create_sector">
+                    <input type="text" placeholder="Название сектора"  name="sector_name[3]" class="form-control" value="" autocomplete="off"/>
+                    <input type="color" placeholder="Цвет сектора"  name="sector_color[3]" class="form-control" value="#6495ED" autocomplete="off"/>
+                    <input type="button" class="form-control" onclick="return deleteField(this)" href="#" value="Del">
+                </div>
             </div>
 
             <div class="form-group form_submit" >
-                <input name="create_sector" value="Добавить сектор" class="btn btn-primary btn-block" type="submit">
+                <a class="btn btn-primary btn-block" onclick="return addField()" href="#">Добавить сектор</a>
                 <input name="save" value="Создать окружность" class="btn btn-success btn-block" type="submit">
             </div>
         </form>
     </div>
+
+    <script>
+        var countOfFields = 3; // Текущее число полей
+        var curFieldNameId = 5; // Уникальное значение для атрибута name
+        var maxFieldLimit = 12; // Максимальное число возможных полей
+        function deleteField(a) {
+            //if (countOfFields > 0) {
+            var arrInput = a.parentNode.getElementsByTagName('input');
+            var name = arrInput[0].value;
+
+//            BX.ajax.post(window.location.href, {delete_name : name} ,function(){});
+            // Получаем доступ к ДИВу, содержащему поле
+            var contDiv = a.parentNode;
+            // Удаляем этот ДИВ из DOM-дерева
+            contDiv.parentNode.removeChild(contDiv);
+            // Уменьшаем значение текущего числа полей
+            countOfFields--;
+            //}
+            // Возвращаем false, чтобы не было перехода по сслыке
+            return false;
+        }
+        function addField() {
+            // Проверяем, не достигло ли число полей максимума
+            if (countOfFields >= maxFieldLimit) {
+                alert("Число полей достигло своего максимума = " + maxFieldLimit);
+                return false;
+            }
+            // Увеличиваем текущее значение числа полей
+            countOfFields++;
+            // Увеличиваем ID
+            curFieldNameId++;
+            // Создаем элемент ДИВ
+            var div = document.createElement("div");
+            // Добавляем HTML-контент с пом. свойства innerHTML
+            div.innerHTML = "<nobr><input name=\"name[" + curFieldNameId + "]\" type=\"text\" style=\"width:300px;\"/>" +
+                    "<input name=\"descript[" + curFieldNameId + "]\" type=\"text\" style=\"width:300px;\" />" +
+                    " <a class=\"adm-table-btn-delete\" onclick=\"return deleteField(this)\" href=\"#\"></a><br>";
+            div.innerHTML = " <div class=\"form-group create_sector\">" +
+                                 "<input type=\"text\" placeholder=\"Название сектора\"  name=\"sector_name[3]\" class=\"form-control\" value=\"\" autocomplete=\"off\"/>" +
+                                 "<input type=\"color\" placeholder=\"Цвет сектора\"  name=\"sector_color[3]\" class=\"form-control\" value=\"#6495ED\" autocomplete=\"off\"/>" +
+                                  " <input type=\"button\" class=\"form-control\" onclick=\"return deleteField(this)\" href=\"#\" value=\"Del\">" +
+                            " </div>";
+            // Добавляем новый узел в конец списка полей
+            document.getElementById("formCircleCreate").appendChild(div);
+            // Возвращаем false, чтобы не было перехода по сслыке
+            return false;
+        }
+    </script>
 
     <footer class="footer">
         <p>&copy; 2016 TzepArt Company, Inc.</p>
