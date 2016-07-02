@@ -167,7 +167,7 @@ function createSector(data) {
 
 function rayAndCircleByLabel(layer,id) {
     var pol = cartesian2Polar(layer.x, layer.y);
-    var dec = cartesian2Dec(bigRadius+30,pol.degr);
+    var dec = cartesian2Dec(bigRadius*2,pol.degr);
     $('canvas').drawArc({
         layer: true,
         strokeStyle: colorRayAndCircleByLabel,
